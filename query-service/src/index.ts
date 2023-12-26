@@ -17,6 +17,7 @@ app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
   console.log("Received event:", req.body.type);
+
   if (type === "PostCreated") {
     const { id, title } = data;
     DATABASE.push({ id, title, comments: [] });
@@ -29,16 +30,6 @@ app.post("/events", (req, res) => {
     const newComment = { id, content, status: "pending" };
 
     post.comments.push(newComment);
-  }
-
-  if (type === "CommentUpdated") {
-    const { id, content, postId, status } = data;
-    const post = DATABASE.find((post) => post.id === postId);
-
-    const comment = post.comments.find((comment: any) => comment.id === id);
-
-    comment.status = status;
-    comment.content = content;
   }
 
   if (type === "CommentUpdated") {

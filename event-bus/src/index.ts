@@ -18,13 +18,12 @@ app.post("/events", (req, res) => {
     console.log(err.message);
   });
 
-  // This is to the CommentsService
-  // We are using this abhi tak
+  // This sthe the CommentService
   axios.post("http://localhost:3001/events", event).catch((err) => {
     console.log(err.message);
   });
 
-  // This is to the QueryService it will update the sturtcure and show with the pending state
+  // This is to the QueryService
   axios.post("http://localhost:3002/events", event).catch((err) => {
     console.log(err.message);
   });
