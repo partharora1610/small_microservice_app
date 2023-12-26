@@ -8,10 +8,13 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const events: any[] = [];
+
 app.post("/events", (req, res) => {
   const event = req.body;
 
-  console.log("Event received:", event);
+  // Add the event to the events array
+  events.push(event);
 
   // This is to the PortService
   axios.post("http://localhost:3000/events", event).catch((err) => {
@@ -36,6 +39,10 @@ app.post("/events", (req, res) => {
   res.send({
     status: "OK",
   });
+});
+
+app.get("/events", (req, res) => {
+  res.send(events);
 });
 
 const port = 3003;

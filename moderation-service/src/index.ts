@@ -9,20 +9,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/events", (req, res) => {
-  console.log("Received event:", req.body.type);
-  console.log("From the modeation service");
-
   const { type, data } = req.body;
   const { id, postId, content } = data;
-  console.log(req.body.type);
 
   if (type === "CommentCreated") {
     const status = content.includes("orange") ? "rejected" : "approved";
-    console.log("CommentCreated status:", status);
 
     setTimeout(async () => {
-      await axios.post("http://localhost:3001/moderation", {
-        type: "CommentUpdated",
+      await axios.post("http://localhost:3003/events", {
+        type: "CommentModerated",
         data: {
           id,
           postId,
