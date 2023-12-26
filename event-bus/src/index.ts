@@ -8,17 +8,20 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const events: any[] = [];
+
 app.post("/events", (req, res) => {
   const event = req.body;
 
-  console.log("Event received:", event);
+  // Add the event to the events array
+  events.push(event);
 
   // This is to the PortService
   axios.post("http://localhost:3000/events", event).catch((err) => {
     console.log(err.message);
   });
 
-  // This is to the CommentsService
+  // This sthe the CommentService
   axios.post("http://localhost:3001/events", event).catch((err) => {
     console.log(err.message);
   });
@@ -33,16 +36,13 @@ app.post("/events", (req, res) => {
     console.log(err.message);
   });
 
-  if (event.type === "CommentStatusUpdated") {
-    // This the query service
-    axios.post("http://localhost:3003/events", event).catch((err) => {
-      console.log(err.message);
-    });
-  }
-
   res.send({
     status: "OK",
   });
+});
+
+app.get("/events", (req, res) => {
+  res.send(events);
 });
 
 const port = 3003;

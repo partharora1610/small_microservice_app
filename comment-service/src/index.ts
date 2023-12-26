@@ -8,14 +8,7 @@ const app = express();
 
 const port = 3001;
 
-const POSTDB: any = {
-  "1": [
-    {
-      id: "1",
-      content: "Hello World",
-    },
-  ],
-};
+const POSTDB: any = {};
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -28,7 +21,7 @@ app.post("/post/:id/comments", async (req, res) => {
   const commentId = randomBytes(4).toString("hex");
 
   const content = req.body.content;
-  const newComment = { id: commentId, content };
+  const newComment = { id: commentId, content, status: "pending" };
 
   const comments = POSTDB[req.params.id as keyof typeof POSTDB] || [];
 
@@ -47,8 +40,27 @@ app.post("/post/:id/comments", async (req, res) => {
   res.status(201).send(newComment);
 });
 
-app.post("/events", (req, res) => {
-  console.log("Received event:", req.body.type);
+app.post("/events", async (req, res) => {
+  const { type, data } = req.body;
+  const { id, postId, status, content } = data;
+
+  if (type === "CommentModerated") {
+    const comments = POSTDB[postId as keyof typeof POSTDB];
+
+    const comment = comments.find((comment: any) => comment.id === id);
+
+    comment.status = status;
+
+    await axios.post("http://localhost:3003/events", {
+      type: "CommentUpdated",
+      data: {
+        id,
+        status,
+        content,
+        postId,
+      },
+    });
+  }
 
   res.send({});
 });
