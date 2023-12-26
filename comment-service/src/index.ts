@@ -8,14 +8,7 @@ const app = express();
 
 const port = 3001;
 
-const POSTDB: any = {
-  "1": [
-    {
-      id: "1",
-      content: "Hello World",
-    },
-  ],
-};
+const POSTDB: any = {};
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -28,7 +21,7 @@ app.post("/post/:id/comments", async (req, res) => {
   const commentId = randomBytes(4).toString("hex");
 
   const content = req.body.content;
-  const newComment = { id: commentId, content };
+  const newComment = { id: commentId, content, status: "pending" };
 
   const comments = POSTDB[req.params.id as keyof typeof POSTDB] || [];
 
@@ -49,7 +42,7 @@ app.post("/post/:id/comments", async (req, res) => {
 
 app.post("/moderation", async (req, res) => {
   console.log("Received event:", req.body.type);
-  // send this to the eventBus
+
   const { type, data } = req.body;
   const { id, postId, status, content } = data;
 

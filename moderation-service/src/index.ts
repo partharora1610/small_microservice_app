@@ -8,7 +8,6 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-// This is being triggered from the event bus with the comment data
 app.post("/events", (req, res) => {
   console.log("Received event:", req.body.type);
   console.log("From the modeation service");
