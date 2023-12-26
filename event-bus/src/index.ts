@@ -13,17 +13,32 @@ app.post("/events", (req, res) => {
 
   console.log("Event received:", event);
 
+  // This is to the PortService
   axios.post("http://localhost:3000/events", event).catch((err) => {
     console.log(err.message);
   });
 
+  // This is to the CommentsService
   axios.post("http://localhost:3001/events", event).catch((err) => {
     console.log(err.message);
   });
 
+  // This is to the QueryService
   axios.post("http://localhost:3002/events", event).catch((err) => {
     console.log(err.message);
   });
+
+  // This is to the ModerationService
+  axios.post("http://localhost:3004/events", event).catch((err) => {
+    console.log(err.message);
+  });
+
+  if (event.type === "CommentStatusUpdated") {
+    // This the query service
+    axios.post("http://localhost:3003/events", event).catch((err) => {
+      console.log(err.message);
+    });
+  }
 
   res.send({
     status: "OK",

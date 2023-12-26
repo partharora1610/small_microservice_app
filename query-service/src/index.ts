@@ -25,7 +25,19 @@ app.post("/events", (req, res) => {
   if (type === "CommentCreated") {
     const { id, content, postId } = data;
     const post = DATABASE.find((post) => post.id === postId);
-    post.comments.push({ id, content });
+
+    const newComment = { id, content, status: "pending" };
+
+    post.comments.push(newComment);
+  }
+
+  if (type === "CommentStatusUpdated") {
+    const { id, postId, status } = data;
+    const post = DATABASE.find((post) => post.id === postId);
+
+    const comment = post.comments.find((comment: any) => comment.id === id);
+
+    comment.status = status;
   }
 
   console.log({ DATABASE });

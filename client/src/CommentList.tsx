@@ -1,7 +1,10 @@
-const CommentList = ({ content, id }: any) => {
+const CommentList = ({ content, id, status }: any) => {
   return (
     <ul>
-      <li key={id}>{content}</li>
+      <li key={id}>
+        <p>{content}</p>
+        <p>{status}</p>
+      </li>
     </ul>
   );
 };

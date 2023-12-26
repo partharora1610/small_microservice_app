@@ -35,6 +35,7 @@ app.post("/post/:id/comments", async (req, res) => {
   comments.push(newComment);
   POSTDB[req.params.id as keyof typeof POSTDB] = comments;
 
+  // This is to the event bus service
   await axios.post("http://localhost:3003/events", {
     type: "CommentCreated",
     data: {
