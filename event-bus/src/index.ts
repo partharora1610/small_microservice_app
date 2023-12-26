@@ -19,11 +19,12 @@ app.post("/events", (req, res) => {
   });
 
   // This is to the CommentsService
+  // We are using this abhi tak
   axios.post("http://localhost:3001/events", event).catch((err) => {
     console.log(err.message);
   });
 
-  // This is to the QueryService
+  // This is to the QueryService it will update the sturtcure and show with the pending state
   axios.post("http://localhost:3002/events", event).catch((err) => {
     console.log(err.message);
   });
@@ -32,13 +33,6 @@ app.post("/events", (req, res) => {
   axios.post("http://localhost:3004/events", event).catch((err) => {
     console.log(err.message);
   });
-
-  if (event.type === "CommentStatusUpdated") {
-    // This the query service
-    axios.post("http://localhost:3003/events", event).catch((err) => {
-      console.log(err.message);
-    });
-  }
 
   res.send({
     status: "OK",

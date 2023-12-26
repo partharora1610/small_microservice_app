@@ -47,6 +47,25 @@ app.post("/post/:id/comments", async (req, res) => {
   res.status(201).send(newComment);
 });
 
+app.post("/moderation", async (req, res) => {
+  console.log("Received event:", req.body.type);
+  // send this to the eventBus
+  const { type, data } = req.body;
+  const { id, postId, status, content } = data;
+
+  await axios.post("http://localhost:3003/events", {
+    type: "CommentUpdated",
+    data: {
+      id,
+      postId,
+      status,
+      content,
+    },
+  });
+
+  res.send({});
+});
+
 app.post("/events", (req, res) => {
   console.log("Received event:", req.body.type);
 

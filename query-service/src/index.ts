@@ -31,13 +31,24 @@ app.post("/events", (req, res) => {
     post.comments.push(newComment);
   }
 
-  if (type === "CommentStatusUpdated") {
-    const { id, postId, status } = data;
+  if (type === "CommentUpdated") {
+    const { id, content, postId, status } = data;
     const post = DATABASE.find((post) => post.id === postId);
 
     const comment = post.comments.find((comment: any) => comment.id === id);
 
     comment.status = status;
+    comment.content = content;
+  }
+
+  if (type === "CommentUpdated") {
+    const { id, content, postId, status } = data;
+    const post = DATABASE.find((post) => post.id === postId);
+
+    const comment = post.comments.find((comment: any) => comment.id === id);
+
+    comment.status = status;
+    comment.content = content;
   }
 
   console.log({ DATABASE });

@@ -22,8 +22,8 @@ app.post("/events", (req, res) => {
     console.log("CommentCreated status:", status);
 
     setTimeout(async () => {
-      await axios.post("http://localhost:3003/events", {
-        type: "CommentStatusUpdated",
+      await axios.post("http://localhost:3001/moderation", {
+        type: "CommentUpdated",
         data: {
           id,
           postId,
