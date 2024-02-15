@@ -57,12 +57,12 @@ const port = 3002;
 app.listen(port, async () => {
   console.log(`Example app listening at http://localhost:${port}`);
 
-  const events = await axios.get("http://localhost:3003/events");
+  // const events = await axios.get("http://localhost:3003/events");
 
-  console.log("Received events:", events.data);
+  // console.log("Received events:", events.data);
 
-  for (let event of events.data) {
-    console.log("Processing event:", event.type);
-    handleEvent(event.type, event.data);
-  }
+  // for (let event of events.data) {
+  //   console.log("Processing event:", event.type);
+  //   handleEvent(event.type, event.data);
+  // }
 });

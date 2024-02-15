@@ -21,7 +21,7 @@ app.post("/events", (req, res) => {
     console.log(err.message);
   });
 
-  // This sthe the CommentService
+  // This the the CommentService
   axios.post("http://localhost:3001/events", event).catch((err) => {
     console.log(err.message);
   });
