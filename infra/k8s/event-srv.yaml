@@ -9,6 +9,5 @@ spec:
   ports:
     - name: event-bus
       protocol: TCP
-      port: 3000
-      targetPort: 3000
-      nodePort: 31515
+      port: 3003
+      targetPort: 3003

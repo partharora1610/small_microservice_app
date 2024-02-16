@@ -25,7 +25,7 @@ app.post("/posts", async (req, res) => {
     title,
   };
 
-  await axios.post("http://localhost:3003/events", {
+  await axios.post("http://event-clusterip-srv:3003/events", {
     type: "PostCreated",
     data: {
       id,
@@ -44,5 +44,6 @@ app.post("/events", (req, res) => {
 
 const port = 3000;
 app.listen(port, () => {
+  console.log("v55 post-service");
   console.log(`Example app listening at http://localhost:${port}`);
 });

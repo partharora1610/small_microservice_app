@@ -13,5 +13,19 @@ spec:
         app: event-bus
     spec:
       containers:
-        - name: post-serivce
-          image: parth1610/event-bus:0.0.1
+        - name: event-bus
+          image: parth1610/event-bus:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: event-bus
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 3003
+      targetPort: 3003

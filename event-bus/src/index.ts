@@ -16,25 +16,25 @@ app.post("/events", (req, res) => {
   // Add the event to the events array
   events.push(event);
 
-  // This is to the PortService
-  axios.post("http://localhost:3000/events", event).catch((err) => {
+  // This is to the PostService
+  axios.post("http://post-clusterip-srv:3000/events", event).catch((err) => {
     console.log(err.message);
   });
 
   // This the the CommentService
-  axios.post("http://localhost:3001/events", event).catch((err) => {
-    console.log(err.message);
-  });
+  // axios.post("http://localhost:3001/events", event).catch((err) => {
+  //   console.log(err.message);
+  // });
 
-  // This is to the QueryService
-  axios.post("http://localhost:3002/events", event).catch((err) => {
-    console.log(err.message);
-  });
+  // // This is to the QueryService
+  // axios.post("http://localhost:3002/events", event).catch((err) => {
+  //   console.log(err.message);
+  // });
 
-  // This is to the ModerationService
-  axios.post("http://localhost:3004/events", event).catch((err) => {
-    console.log(err.message);
-  });
+  // // This is to the ModerationService
+  // axios.post("http://localhost:3004/events", event).catch((err) => {
+  //   console.log(err.message);
+  // });
 
   res.send({
     status: "OK",

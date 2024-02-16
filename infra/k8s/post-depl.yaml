@@ -14,6 +14,18 @@ spec:
     spec:
       containers:
         - name: post-serivce
-          image: parth1610/post-service:0.0.1
-          # ports:
-          #   - containerPort: 4000
+          image: parth1610/post-service:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: post-service
+  ports:
+    - name: post-service
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
