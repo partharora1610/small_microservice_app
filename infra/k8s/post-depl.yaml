@@ -13,7 +13,7 @@ spec:
         app: post-service
     spec:
       containers:
-        - name: post-serivce
+        - name: post-service
           image: parth1610/post-service:latest
 ---
 apiVersion: v1
